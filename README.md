@@ -1,3 +1,8 @@
-# Starter repository
+# Patterns in the Complex Plane
 
-The files in the [public](/public) directory are deployed to: https://cse442-22au.pages.cs.washington.edu/starter-repository/
+Team members:
+* Alex Mallen
+* Damian Moser
+* Nathan Zeng
+
+The files in the [public](/public) directory are deployed to: https://cse442-22au.pages.cs.washington.edu/fp/complex-plane/
