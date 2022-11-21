@@ -1,42 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Uncomment if you want your page to NOT be indexed by search engines: -->
-  <!-- <meta name="robots" content="none"> -->
-  <link rel="stylesheet" href="style.css" />
-  <title>Patterns in the Complex Plane</title>
-
-  <!-- Uncomment if using d3: -->
-  <!-- <script src="https://d3js.org/d3.v7.min.js"></script> -->
-</head>
-
-<!------------------------------------------------------------>
-<!-- You are free to modify this template however you want! -->
-<!------------------------------------------------------------>
-
-<body>
-  <header>
-    <h1><a href=".">Patterns in the Complex Plane</a></h1>
-
-    <p>
-      <strong>Team Members</strong>: Alex Mallen; Damian Moser; Nathan Zeng
-    </p>
-  </header>
-
-  <footer>
-    <p>
-      <a href="https://gitlab.cs.washington.edu/cse442-22au/fp/complex-plane">Repository</a>
-      <br>
-      <a href="https://courses.cs.washington.edu/courses/cse442/22au/">CSE 442 Data Visualization</a>
-      <br>
-      <a href="https://www.washington.edu">University of Washington</a>
-    </p>
-  </footer>
-
-  <script src="main.js"></script>
-</body>
-
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Mandelbrot Set explained!</title>
+    <link rel="stylesheet" href="style.css">   
+  </head>
+  <body>
+    <noscript>This page contains javascript content, please enable javascript in your browser.</noscript>
+    <div class="snapparent">
+      <div class="snap">
+        <h1 class="title">What is the Mandelbrot set?</h1>
+        <div class="content">
+          //TODO add img
+          <!-- <img src="" alt=""> -->
+        </div>
+        <div class="text">
+          z_n+1 = z_n^2 + c<br>
+          This formula captures the whole generated fracture. But where do the colors come from? And how do we generate this image? <br>
+          Let us explore this wonderful Beauty in this exploratory website. Buckle your seatbelts!
+        </div>
+      </div>
+      <div class="snap">
+        <h2 class="title">What is complex number squared?</h2>
+        <div class="content"><canvas id="complexSqr"></canvas></div>
+        <div class="text">
+          A complex number (a + bi) squared equals (a + bi)^2 = (a^2 + 2abi - b^2). This doesn't seem intuitiv.<br>
+          Do you find the the relation between and (a + bi) and (a + bi)^2? Compare the Angles and Magnitude in the unit cirlce on the left<br>
+        </div>
+      </div>
+      <div class="snap">
+        <h2 class="title">How do we get the next iteration?</h2>
+        <div class="content"><canvas id="pointiter"></canvas></div>
+        <div class="text">
+          Now lets return to our original formula z_n+1 = z_n^2 + c<br>
+          Important to note is that z_0 = c. But what is c?<br>
+          It is the starting point of the iteration and it doesn't change.<br>
+          Let us visualize the iteration for an arbitrary point.<br>
+          See how some points c seem to escape to infinity and some converge.<br>
+        </div>
+      </div>
+      <div class="snap">
+        <h2 class="title">But where does the color come from?</h2>
+        <div class="content"><canvas id="pointitercolor"></canvas></div>
+        <div class="text">
+          As you saw, some points escape to infinity, others converge.<br>
+          Now how about we give every point a color, by how long he needs to escape to infinity?<br>
+          Thats already how we generate the beautyful fraction.<br>
+          The Mandelbrot Set contains all the points that converge. They are typically drawn as black<br>
+          So the colors you see in the image are points that go to infinity by different speeds<br>
+        </div>
+      </div>
+    </div>
+    <script src="./index.js"></script>
+    <script src="./cmplxSqr.js"></script>
+    <script src="./pointiter.js"></script>
+    <script src="./pointitercolor.js"></script>
+  </body>
 </html>

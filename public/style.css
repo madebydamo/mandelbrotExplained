@@ -1,35 +1,56 @@
-/* Reset padding and margin */
-* {
+body {
+  font: 18px/1.5 "Avenir", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  height: 100vh;
+  overflow: hidden;
   margin: 0;
   padding: 0;
+  background-color: gray;
+  color: white;
 }
-
-body {
-  padding: 64px 32px;
-  font: 18px/1.5 "Avenir", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+.snapparent {
+  scroll-snap-type: y mandatory;
+  overflow: scroll;
+  height: 100vh;
 }
-
-header,
-footer {
-  max-width: 90ex;
-  margin: 0 auto;
+/* .snap > div { */
+/*   display: inline-block; */
+/*   width: 49vw; */
+/* } */
+.title {
+  margin: 0;
+  padding: 3em 0 3em 0;
+  width: 100vw; 
+  /* display: inline-block; */
+  grid-column: span 12;
+  /* flex: 0 0 auto; */
 }
-
-header {
-  padding-bottom: 32px;
-  border-bottom: 2px solid #ccc;
+.text {
+  height: 100%;
+  /* margin: auto 0 auto 0; */
+  padding: 0;
+  /* width: 30vw;  */
+  /* display: inline-block; */
+  grid-column: span 3;
+  text-align: center;
 }
-
-footer {
-  padding-top: 16px;
-  text-align: right;
+.content {
+  margin: auto 0 auto 0;
+  padding: 0;
+  width: 69vw; 
+  height: 100%;
+  /* display: inline-block; */
+  grid-column: span 9;
+  /* flex: 1 1 auto; */
 }
-
-h1 {
-  margin-bottom: 32px;
-  color: #492a7c;
+.content > * {
+  width: 100%;
+  height: 100%;
 }
-
-a {
-  text-decoration: none;
+.snap {
+  height: 100vh;
+  width: 100vw;
+  scroll-snap-align: start;
+  display: grid;    
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 20vh 80vh;
 }
