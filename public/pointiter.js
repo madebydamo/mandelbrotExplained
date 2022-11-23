@@ -25,9 +25,9 @@ pointiter.addEventListener('mousemove', function(event) {
   const y = canvasToRealY(heightAbs, 0, event.clientY - rect.top, sizeHeight);
   var nextx = x;
   var nexty = y;
-  var intensity = 254;
+  var intensity = 0;
   anim = function() {
-    if (intensity < 0) return;
+    if (intensity >= 256) return;
     var tempx = nextx * nextx - nexty * nexty + x;
     var tempy = 2 * nextx * nexty + y;
     ctxp.beginPath();
@@ -36,7 +36,7 @@ pointiter.addEventListener('mousemove', function(event) {
     ctxp.closePath();
     ctxp.stroke();
     ctxp.lineWidth = 2;
-    ctxp.fillStyle = "#" + componentToHex(intensity) + "0000";
+    ctxp.fillStyle = "#" + componentToHex(( intensity / 256 ) * 59 + 196) + "0000";
     ctxp.beginPath();
     ctxp.arc(realToCanvasX(widthAbs, 0, tempx, sizeWidth), realToCanvasY(heightAbs, 0, tempy, sizeHeight), realLenghtToCanvas(widthAbs, sizeWidth, 0.03), 0, 2 * Math.PI);
     ctxp.closePath();
@@ -45,12 +45,12 @@ pointiter.addEventListener('mousemove', function(event) {
     ctxp.fillStyle = "black";
     nextx = tempx;
     nexty = tempy;
-    intensity -= 5;
+    intensity += 5;
     requestAnimationFrame(anim);
   };
   requestAnimationFrame(anim);
   ctxp.beginPath();
-  ctxp.fillStyle = "#FF0000";
+  ctxp.fillStyle = "#c40000";
   ctxp.arc(realToCanvasX(widthAbs, 0, x, sizeWidth), realToCanvasY(heightAbs, 0, y, sizeHeight), realLenghtToCanvas(widthAbs, sizeWidth, 0.03), 0, 2 * Math.PI);
   ctxp.closePath();
   ctxp.fill();
@@ -60,6 +60,6 @@ pointiter.addEventListener('mousemove', function(event) {
 });
 
 function componentToHex(c) {
-  var hex = c.toString(16);
+  var hex = Math.round(c).toString(16);
   return hex.length == 1 ? "0" + hex : hex;
 }
