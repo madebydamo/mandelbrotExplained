@@ -6,17 +6,19 @@ mandel.width = sizeWidth;
 mandel.height = sizeHeight;
 
 var mandelbrotInteractive = {
-  midx: -0.5,
-  midy: 0,
-  scale: 2.5,
-  width: sizeWidth,
-  height: sizeHeight,
+  settings: {
+    midx: -0.5,
+    midy: 0,
+    scale: 2.5,
+    width: sizeWidth,
+    height: sizeHeight,
+    current: 0,
+    iterAmount: 1000,
+  },
   rows: [],
-  current: 0,
-  iterAmount: 1000,
 }
 
-for (let i = 0; i < mandelbrotInteractive.height; i++) {
+for (let i = 0; i < mandelbrotInteractive.settings.height; i++) {
   mandelbrotInteractive.rows[i] = {
     index: i,
     iteration: [],
@@ -25,7 +27,7 @@ for (let i = 0; i < mandelbrotInteractive.height; i++) {
     n: 0,
     inProg: false,
   };
-  for (let j = 0; j < mandelbrotInteractive.width; j++) {
+  for (let j = 0; j < mandelbrotInteractive.settings.width; j++) {
     mandelbrotInteractive.rows[i].iteration[j] = 0;
   }
 }
@@ -44,25 +46,25 @@ mandel.addEventListener("mouseup", (event) => {
   const y = event.clientY - rect.top;
   var widthAbs;
   var heightAbs;
-  if (mandelbrotInteractive.width > mandelbrotInteractive.height) {
-    widthAbs = mandelbrotInteractive.scale * (mandelbrotInteractive.width / mandelbrotInteractive.height);
-    heightAbs = mandelbrotInteractive.scale;
+  if (mandelbrotInteractive.settings.width > mandelbrotInteractive.settings.height) {
+    widthAbs = mandelbrotInteractive.settings.scale * (mandelbrotInteractive.settings.width / mandelbrotInteractive.settings.height);
+    heightAbs = mandelbrotInteractive.settings.scale;
   } else {
-    widthAbs = mandelbrotInteractive.scale;
-    heightAbs = mandelbrotInteractive.scale * (mandelbrotInteractive.height / mandelbrotInteractive.width);
+    widthAbs = mandelbrotInteractive.settings.scale;
+    heightAbs = mandelbrotInteractive.settings.scale * (mandelbrotInteractive.settings.height / mandelbrotInteractive.settings.width);
   }
-  const realstartx = canvasToRealX(widthAbs, mandelbrotInteractive.midx, pointEnter.x, mandelbrotInteractive.width)
-  const realendx = canvasToRealX(widthAbs, mandelbrotInteractive.midx, x, mandelbrotInteractive.width)
-  const realstarty = canvasToRealX(heightAbs, mandelbrotInteractive.midy, pointEnter.y, mandelbrotInteractive.height)
-  const realendy = canvasToRealX(heightAbs, mandelbrotInteractive.midy, y, mandelbrotInteractive.height)
-  mandelbrotInteractive.midx = (realstartx + realendx) / 2;
-  mandelbrotInteractive.midy = (realstarty + realendy) / 2;
+  const realstartx = canvasToRealX(widthAbs, mandelbrotInteractive.settings.midx, pointEnter.x, mandelbrotInteractive.settings.width)
+  const realendx = canvasToRealX(widthAbs, mandelbrotInteractive.settings.midx, x, mandelbrotInteractive.settings.width)
+  const realstarty = canvasToRealX(heightAbs, mandelbrotInteractive.settings.midy, pointEnter.y, mandelbrotInteractive.settings.height)
+  const realendy = canvasToRealX(heightAbs, mandelbrotInteractive.settings.midy, y, mandelbrotInteractive.settings.height)
+  mandelbrotInteractive.settings.midx = (realstartx + realendx) / 2;
+  mandelbrotInteractive.settings.midy = (realstarty + realendy) / 2;
   if (Math.abs(realstartx - realendx) / widthAbs > Math.abs(realstarty - realendy) / heightAbs) {
-    mandelbrotInteractive.scale = Math.abs(realstarty - realendy);
+    mandelbrotInteractive.settings.scale = Math.abs(realstarty - realendy);
   } else {
-    mandelbrotInteractive.scale = Math.abs(realstartx - realendx);
+    mandelbrotInteractive.settings.scale = Math.abs(realstartx - realendx);
   }
-  for (let i = 0; i < mandelbrotInteractive.height; i++) {
+  for (let i = 0; i < mandelbrotInteractive.settings.height; i++) {
     mandelbrotInteractive.rows[i] = {
       index: i,
       iteration: [],
@@ -71,7 +73,7 @@ mandel.addEventListener("mouseup", (event) => {
       n: 0,
       inProg: false,
     };
-    for (let j = 0; j < mandelbrotInteractive.width; j++) {
+    for (let j = 0; j < mandelbrotInteractive.settings.width; j++) {
       mandelbrotInteractive.rows[i].iteration[j] = 0;
     }
   }
@@ -85,7 +87,7 @@ mandel.addEventListener("mousedown", (event) => {
   const x = event.clientX - rect.left;
   const y = event.clientY - rect.top;
   pointEnter = { x: x, y: y };
-  image = ctxm.getImageData(0, 0, mandelbrotInteractive.width, mandelbrotInteractive.height);
+  image = ctxm.getImageData(0, 0, mandelbrotInteractive.settings.width, mandelbrotInteractive.settings.height);
 });
 mandel.addEventListener("mouseleave", (event) => {
   pointEnter = null;
@@ -106,16 +108,18 @@ mandel.addEventListener("contextmenu", (event) => {
     workersmi[i].terminate();
   };
   mandelbrotInteractive = {
-    midx: -0.5,
-    midy: 0,
-    scale: 2.5,
-    width: sizeWidth,
-    height: sizeHeight,
+    settings: {
+      midx: -0.5,
+      midy: 0,
+      scale: 2.5,
+      width: sizeWidth,
+      height: sizeHeight,
+      current: 0,
+      iterAmount: 1000,
+    },
     rows: [],
-    current: 0,
-    iterAmount: 1000,
   };
-  for (let i = 0; i < mandelbrotInteractive.height; i++) {
+  for (let i = 0; i < mandelbrotInteractive.settings.height; i++) {
     mandelbrotInteractive.rows[i] = {
       index: i,
       iteration: [],
@@ -124,7 +128,7 @@ mandel.addEventListener("contextmenu", (event) => {
       n: 0,
       inProg: false,
     };
-    for (let j = 0; j < mandelbrotInteractive.width; j++) {
+    for (let j = 0; j < mandelbrotInteractive.settings.width; j++) {
       mandelbrotInteractive.rows[i].iteration[j] = 0;
     }
   }
@@ -134,15 +138,16 @@ mandel.addEventListener("contextmenu", (event) => {
 function startcalc() {
 
   //Generate Worker
-  mandelbrotInteractive.current = 7;
+  mandelbrotInteractive.settings.current = 7;
   for (let i = 0; i < 8; i++) {
     workersmi[i] = new Worker("worker.js");
+    workersmi[i].postMessage(mandelbrotInteractive.settings);
     workersmi[i].onmessage = (e) => {
       var row = e.data;
 
-      ctxm.clearRect(0, row.index, mandelbrotInteractive.width, 1);
+      ctxm.clearRect(0, row.index, mandelbrotInteractive.settings.width, 1);
       ctxm.beginPath();
-      for (let j = 0; j < mandelbrotInteractive.width; j++) {
+      for (let j = 0; j < mandelbrotInteractive.settings.width; j++) {
         var r;
         var g;
         var b;
@@ -163,17 +168,17 @@ function startcalc() {
       ctxm.fill();
 
       mandelbrotInteractive.rows[row.index] = row;
-      for (let j = 0; j < mandelbrotInteractive.height - 1; j++) {
-        var realIndex = (mandelbrotInteractive.current + j + 1) % mandelbrotInteractive.height;
+      for (let j = 0; j < mandelbrotInteractive.settings.height - 1; j++) {
+        var realIndex = (mandelbrotInteractive.settings.current + j + 1) % mandelbrotInteractive.settings.height;
         if (!mandelbrotInteractive.rows[realIndex].inProg) {
           mandelbrotInteractive.rows[realIndex].inProg = true;
-          mandelbrotInteractive.current = realIndex;
-          workersmi[i].postMessage([mandelbrotInteractive, realIndex]);
+          mandelbrotInteractive.settings.current = realIndex;
+          workersmi[i].postMessage(mandelbrotInteractive.rows[realIndex]);
           break;
         }
       }
     };
     mandelbrotInteractive.rows[i].inProg = true;
-    workersmi[i].postMessage([mandelbrotInteractive, i]);
+    workersmi[i].postMessage(mandelbrotInteractive.rows[i]);
   }
 }

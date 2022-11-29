@@ -1,29 +1,33 @@
+var settings = null
 onmessage = function(e) {
-  var mandelbrot = e.data[0];
-  var index = e.data[1];
-  var row = mandelbrot.rows[index];
+  if (settings == null) {
+    console.log(e.data);
+    settings = e.data;
+    return;
+  }
+  var row = e.data;
   var widthAbs;
   var heightAbs;
   var unfinished = false;
-  if (mandelbrot.width > mandelbrot.height) {
-    widthAbs = mandelbrot.scale * (mandelbrot.width / mandelbrot.height);
-    heightAbs = mandelbrot.scale;
+  if (settings.width > settings.height) {
+    widthAbs = settings.scale * (settings.width / settings.height);
+    heightAbs = settings.scale;
   } else {
-    widthAbs = mandelbrot.scale;
-    heightAbs = mandelbrot.scale * (mandelbrot.height / mandelbrot.width);
+    widthAbs = settings.scale;
+    heightAbs = settings.scale * (settings.height / settings.width);
   }
-  for (let i = 0; i < mandelbrot.width; i++) {
+  for (let i = 0; i < settings.width; i++) {
     if (row.iteration[i] != 0) continue;
     unfinished = true;
-    var ca = canvasToRealX(widthAbs, mandelbrot.midx, i, mandelbrot.width);
-    var cb = canvasToRealY(heightAbs, mandelbrot.midy, row.index, mandelbrot.height);
+    var ca = canvasToRealX(widthAbs, settings.midx, i, settings.width);
+    var cb = canvasToRealY(heightAbs, settings.midy, row.index, settings.height);
     var za = ca;
     var zb = cb;
-    if (row.zna.lenght > i) {
+    if (row.n > 0) {
       za = row.zna[i];
       zb = row.znb[i];
     }
-    for (let j = 0; j < mandelbrot.iterAmount; j++) {
+    for (let j = 0; j < settings.iterAmount; j++) {
       var tempa = za * za - zb * zb + ca;
       var tempb = 2 * za * zb + cb;
       if (tempa * tempa + tempb * tempb > 4) {
@@ -36,7 +40,7 @@ onmessage = function(e) {
     row.zna[i] = za;
     row.znb[i] = zb;
   }
-  row.n += mandelbrot.iterAmount;
+  row.n += settings.iterAmount;
   if (unfinished) {
     row.inProg = false;
   } else {
