@@ -166,6 +166,7 @@ function startcalc() {
       }
       ctxm.closePath();
       ctxm.fill();
+      printInfo();
 
       mandelbrotInteractive.rows[row.index] = row;
       for (let j = 0; j < mandelbrotInteractive.settings.height - 1; j++) {
@@ -181,4 +182,35 @@ function startcalc() {
     mandelbrotInteractive.rows[i].inProg = true;
     workersmi[i].postMessage(mandelbrotInteractive.rows[i]);
   }
+}
+
+function printInfo() {
+  var widthAbs;
+  var heightAbs;
+  var width;
+  var height;
+  if (mandelbrotInteractive.settings.width > mandelbrotInteractive.settings.height) {
+    width = mandelbrotInteractive.settings.scale * (mandelbrotInteractive.settings.width / mandelbrotInteractive.settings.height);
+    height = mandelbrotInteractive.settings.scale;
+    widthAbs = mandelbrot.settings.scale * (mandelbrotInteractive.settings.width / mandelbrotInteractive.settings.height);
+    heightAbs = mandelbrot.settings.scale;
+  } else {
+    width = mandelbrotInteractive.settings.scale;
+    height = mandelbrotInteractive.settings.scale * (mandelbrotInteractive.settings.height / mandelbrotInteractive.settings.width);
+    widthAbs = mandelbrot.settings.scale;
+    heightAbs = mandelbrot.settings.scale * (mandelbrotInteractive.settings.height / mandelbrotInteractive.settings.width);
+  }
+  widthAbs = widthAbs * 1.5;
+  heightAbs = heightAbs * 1.5;
+  var dif = realLenghtToCanvas(widthAbs, sizeWidth, 0.1);
+  ctxm.font = realLenghtToCanvas(widthAbs, sizeWidth, 0.06) + "px Courier New";
+  ctxm.fillStyle = "#808080";
+  ctxm.beginPath();
+  ctxm.fillRect(realLenghtToCanvas(widthAbs, sizeWidth, 0.08), realLenghtToCanvas(widthAbs, sizeWidth, 0.03) , 15 * dif, 4 * dif);
+  ctxm.closePath();
+  ctxm.fillStyle = "white";
+  ctxm.fillText("Middle point x: " + mandelbrotInteractive.settings.midx, dif, dif);
+  ctxm.fillText("Middle point y: " + mandelbrotInteractive.settings.midy, dif, 2 * dif);
+  ctxm.fillText("Width: " + width, dif, 3 * dif);
+  ctxm.fillText("Height: " + height, dif, 4 * dif);
 }

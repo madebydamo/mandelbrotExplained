@@ -66,6 +66,7 @@ for (let i = 0; i < 4; i++) {
     drawUnitCircle(ctxpc, -0.5, 0, 2.5);
     if (mandelbrot.settings.midx == mandelbrotInteractive.settings.midx && mandelbrot.settings.midy == mandelbrotInteractive.settings.midy && mandelbrot.settings.scale == mandelbrotInteractive.settings.scale) {
       ctxm.drawImage(mandelinit, 0, 0);
+      printInfo();
     }
     row.inProg = true; //1000 is enough for the static image
     mandelbrot.rows[row.index] = row;

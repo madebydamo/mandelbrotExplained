@@ -5,6 +5,9 @@
   <meta charset="utf-8">
   <title>Mandelbrot Set explained!</title>
   <link rel="stylesheet" href="style.css">
+  <script type="text/javascript"
+  src="https://www.maths.nottingham.ac.uk/plp/pmadw/LaTeXMathML.js">
+  </script>
 </head>
 
 <body>
@@ -18,41 +21,51 @@
         <!-- <img src="" alt=""> -->
       </div>
       <div class="text">
-        z_n+1 = z_n^2 + c<br>
-        This formula captures the whole generated fractal. But where do the colors come from? And how do we generate
-        this image? <br>
+          $z_{n+1} = z_n^2 + c$<br>
+        This formula is the essence of this generated fractal. But where do the colors come from? And how do we generate
+        it? <br>
         Let us explore this wonderful beauty in this exploratory website. Buckle your seatbelts and scroll down!
       </div>
     </div>
     <div class="snap">
-      <h2 class="title">What is the square of a complex number?</h2>
+      <h2 class="title">How do we start?</h2>
       <div class="content"><canvas id="complexSqr"></canvas></div>
       <div class="text">
-        A complex number (a + bi) squared is (a + bi)^2 = (a^2 + 2abi - b^2). This doesn't seem intuitive.<br>
-        Can you find the the relation between and (a + bi) and (a + bi)^2? Compare the Angles and Magnitude in the unit
-        cirlce on the left<br>
+          Let us see how we get from $z_0$ to $z_1$. Our mouse determines the c, a complex number.
+          This also is our $z_0$, the starting point of our iteration. So $z_0 = c$.
+          Now according to our formula, $z_1 = z_0^2 + c$.
+          We visualized $z_0 = c$, $z_0^2$ and $z_1$, so you can get a feeling for what is going on.
+        <!-- A complex number $(a + bi)$ squared is $(a + bi)^2 = (a^2 + 2abi - b^2)$. This doesn't seem intuitive.<br> -->
+        <!--     Can you find the the relation between and $(a + bi)$ and $(a + bi)^2$? Compare the Angles and Magnitude in the unit -->
+        <!-- cirlce on the left<br> -->
       </div>
     </div>
     <div class="snap">
-      <h2 class="title">How do we get the next iteration?</h2>
+      <h2 class="title">What happens if we continue the iteration?</h2>
       <div class="content"><canvas id="pointiter"></canvas></div>
       <div class="text">
-        Now let's return to our original formula z_n+1 = z_n^2 + c<br>
-        It is important to note that z_0 = c. But what is c?<br>
-        It is the starting point of the iteration and it doesn't change.<br>
-        Let us visualize the iteration for an arbitrary point.<br>
-        See how some points c seem to escape to infinity and some converge.<br>
+          <!-- Now let's return to our original formula $z_{n+1} = z_n^2 + c$<br> -->
+            <!-- It is important to note that $z_0 = c$. But what is c?<br> -->
+        <!-- It is the starting point of the iteration and it doesn't change.<br> -->
+          Now that we know how to start the iteration, lets see what happens when we continue it.
+          Now we visualize not only $z_0$ and $z_1$ but all $z_i$ until $i=50$.
+          See how some points $c$ seem to let the equation escape to infinity.<br>
       </div>
     </div>
     <div class="snap">
       <h2 class="title">But where does the color come from?</h2>
       <div class="content"><canvas id="pointitercolor"></canvas></div>
       <div class="text">
-        As you saw, some points escape to infinity, others converge.<br>
-        Now, let's give every point a color, depending on how long it takes to escape to infinity.<br>
-        That's how we generate this beautiful fractal.<br>
-        The Mandelbrot Set contains all the points that converge. They are typically drawn as black<br>
-        So the colors you see in the image are points that go to infinity at different speeds<br>
+          As you saw, some points escape to infinity, others tend to stay around the unit circle.<br>
+          Now, let's color every point $c$ according to how long it takes for the equation to escape to infinity.<br>
+          That's how we generate this beautiful fractal.<br>
+          The Mandelbrot Set contains all the points that don't diverge. They are typically drawn as black.<br>
+          So the colors you see in the image are points that go to infinity at different speeds.<br>
+          As a little sidenode how we determine if a point escapes to infinity is pretty simple.
+          If the magnitude of a point $z_n$ is greater then 2, we know it goes to infinity.
+          A rigorous prove can be found <a href="https://math.stackexchange.com/questions/890190/mandelbrot-sets-and-radius-of-convergence">here</a>.<br>
+          As an intuitive explanation you can think of $\vert z_{n+1}\vert > \vert z_n \vert^2 - \vert c \vert$ for $\vert c \vert < 2$ and $\vert z_n \vert > 2$.
+          So if the magnitude of z_n only increases, the point must diverge.
       </div>
     </div>
     <div class="snap">
@@ -62,8 +75,8 @@
         You will discover another fascinating thing about the Mandelbrot set when you zoom in.<br>
         In theory, you can draw the fractal as deep as you want. On this website it's only possible to zoom in, until we
         reach the floating point accuracy. <br>
-        But nonetheless this is an awesome adventure. <br>
-        To zoom in, click and drag your mouse over the area you want to inspect. To restart, press right click <br>
+        But nonetheless this will be an awesome adventure. <br>
+            To <b style="color: yellow">zoom in, click and drag</b> your mouse over the area you want to inspect. To <b style="color: yellow">restart, press right click</b> <br>
       </div>
     </div>
   </div>
