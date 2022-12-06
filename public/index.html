@@ -24,7 +24,8 @@
           $z_{n+1} = z_n^2 + c$<br>
         This formula is the essence of this generated fractal. But where do the colors come from? And how do we generate
         it? <br>
-        Let us explore this wonderful beauty in this exploratory website. Buckle your seatbelts and scroll down!
+        Let us explore this wonderful beauty in this exploratory website. Buckle your seatbelts and scroll down! <br>
+        Note: Please use Firefox for the best experience (Chrome doesn't render MathML symbols properly)
       </div>
     </div>
     <div class="snap">
@@ -47,7 +48,7 @@
           <!-- Now let's return to our original formula $z_{n+1} = z_n^2 + c$<br> -->
             <!-- It is important to note that $z_0 = c$. But what is c?<br> -->
         <!-- It is the starting point of the iteration and it doesn't change.<br> -->
-          Now that we know how to start the iteration, lets see what happens when we continue it.
+          Now that we know how to start the iteration, let's see what happens when we continue it.
           Now we visualize not only $z_0$ and $z_1$ but all $z_i$ until $i=50$.
           See how some points $c$ seem to let the equation escape to infinity.<br>
       </div>
@@ -61,9 +62,9 @@
           That's how we generate this beautiful fractal.<br>
           The Mandelbrot Set contains all the points that don't diverge. They are typically drawn as black.<br>
           So the colors you see in the image are points that go to infinity at different speeds.<br>
-          As a little sidenode how we determine if a point escapes to infinity is pretty simple.
+          As a little sidenote, how we determine if a point escapes to infinity is pretty simple.
           If the magnitude of a point $z_n$ is greater then 2, we know it goes to infinity.
-          A rigorous prove can be found <a href="https://math.stackexchange.com/questions/890190/mandelbrot-sets-and-radius-of-convergence">here</a>.<br>
+          A rigorous proof can be found <a href="https://math.stackexchange.com/questions/890190/mandelbrot-sets-and-radius-of-convergence">here</a>.<br>
           As an intuitive explanation you can think of $\vert z_{n+1}\vert > \vert z_n \vert^2 - \vert c \vert$ for $\vert c \vert < 2$ and $\vert z_n \vert > 2$.
           So if the magnitude of z_n only increases, the point must diverge.
       </div>
