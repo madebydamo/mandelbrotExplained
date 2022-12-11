@@ -82,7 +82,30 @@ mandel.addEventListener("mouseup", (event) => {
 });
 
 mandel.addEventListener("mousedown", (event) => {
+  console.log(event.button);
   if (event.button == 2) return;
+  if (event.button == 1) {
+    event.preventDefault();
+    for (let i = 0; i < workersmi.length; i++) {
+      workersmi[i].terminate();
+    };
+    mandelbrotInteractive.settings.scale *= 2;
+    for (let i = 0; i < mandelbrotInteractive.settings.height; i++) {
+      mandelbrotInteractive.rows[i] = {
+        index: i,
+        iteration: [],
+        zna: [],
+        znb: [],
+        n: 0,
+        inProg: false,
+      };
+      for (let j = 0; j < mandelbrotInteractive.settings.width; j++) {
+        mandelbrotInteractive.rows[i].iteration[j] = 0;
+      }
+    }
+    startcalc();
+    return;
+  }
   const rect = mandel.getBoundingClientRect();
   const x = event.clientX - rect.left;
   const y = event.clientY - rect.top;
@@ -206,7 +229,7 @@ function printInfo() {
   ctxm.font = realLenghtToCanvas(widthAbs, sizeWidth, 0.06) + "px Courier New";
   ctxm.fillStyle = "#808080";
   ctxm.beginPath();
-  ctxm.fillRect(realLenghtToCanvas(widthAbs, sizeWidth, 0.08), realLenghtToCanvas(widthAbs, sizeWidth, 0.03) , 15 * dif, 4 * dif);
+  ctxm.fillRect(realLenghtToCanvas(widthAbs, sizeWidth, 0.08), realLenghtToCanvas(widthAbs, sizeWidth, 0.03), 15 * dif, 4 * dif);
   ctxm.closePath();
   ctxm.fillStyle = "white";
   ctxm.fillText("Middle point x: " + mandelbrotInteractive.settings.midx, dif, dif);
